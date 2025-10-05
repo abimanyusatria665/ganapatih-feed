@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  posts     Post[]
+  followers Follow[] @relation("Followers")
+  following Follow[] @relation("Following")
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  content   String   @db.VarChar(200)
+  userId    Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Follow {
+  id         Int      @id @default(autoincrement())
+  followerId Int
+  followeeId Int
+  createdAt  DateTime @default(now())
+
+  follower   User @relation("Followers", fields: [followerId], references: [id], onDelete: Cascade)
+  followee   User @relation("Following", fields: [followeeId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followeeId])   // cegah duplikat follow
+  @@index([followerId])
+  @@index([followeeId])
+  @@index([followeeId, createdAt])
+}
