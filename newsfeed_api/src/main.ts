@@ -20,7 +20,7 @@ async function bootstrap() {
     preflightContinue: false,
     optionsSuccessStatus: 204,
     credentials: true,
-    allowedHeaders: ['*'],
+    allowedHeaders: ['Content-Type', 'Authorization'], // 👈 penting
   };
 
   app.enableCors(cors);
