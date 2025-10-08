@@ -32,7 +32,7 @@ export default function TimelinePage() {
     try {
       setLoading(true);
       const res = await fetch(
-        `http://localhost:3001/post/timeline?page=${pageNum}&limit=5`,
+        `${process.env.NEXT_PUBLIC_API_URL}/post/timeline?page=${pageNum}&limit=5`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

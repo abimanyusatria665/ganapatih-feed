@@ -79,7 +79,7 @@ export default function Navbar() {
 
     try {
       const res = await fetch(
-        `http://localhost:3001/users/search?query=${value}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/search?query=${value}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }

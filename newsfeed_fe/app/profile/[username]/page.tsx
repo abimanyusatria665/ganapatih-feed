@@ -30,7 +30,7 @@ export default function ProfilePage() {
     try {
       setLoading(true);
       const res = await fetch(
-        `http://localhost:3001/users/profile/${username}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/profile/${username}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -73,7 +73,7 @@ export default function ProfilePage() {
     try {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `http://localhost:3001/users/follow/${profile.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/follow/${profile.id}`,
         {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
@@ -99,7 +99,7 @@ export default function ProfilePage() {
     try {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `http://localhost:3001/users/unfollow/${profile.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/users/unfollow/${profile.id}`,
         {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
