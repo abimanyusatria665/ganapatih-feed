@@ -14,16 +14,16 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('openapi', app, document);
 
-  const cors = {
-    origin: ['http://localhost:3000', 'http://localhost', '*'],
-    methods: 'GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS',
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
+  app.enableCors({
+    origin: [
+      'http://localhost:3000',
+      'https://abimanyu.my.id',
+      'https://www.abimanyu.my.id',
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'], // 👈 penting
-  };
-
-  app.enableCors(cors);
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
 
   await app.listen(3001);
 }
